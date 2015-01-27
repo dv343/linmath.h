@@ -31,6 +31,24 @@ static inline float vec##n##_mul_inner(vec##n const a, vec##n const b) \
 		p += b[i]*a[i]; \
 	return p; \
 } \
+static inline void vec##n##_abs(vec##n r, vec##n const a) \
+{ \
+	int i; \
+	for(i=0; i<n; ++i) \
+		r[i] = fabsf(a[i]); \
+} \
+static inline void vec##n##_clamp(vec##n r, vec##n const a, float min, float max) \
+{ \
+	int i; \
+	for(i=0; i<n; ++i) \
+		r[i] = a[i]>max? max: (a[i]<min?min:a[i]); \
+} \
+static inline void vec##n##_vecmod(vec##n r, vec##n const a, vec##n const b) \
+{ \
+	int i; \
+	for(i=0; i<n; ++i) \
+		r[i] = a[i]-b[i]*floorf(a[i]/b[i]); \
+} \
 static inline float vec##n##_len(vec##n const v) \
 { \
 	return sqrtf(vec##n##_mul_inner(v,v)); \
